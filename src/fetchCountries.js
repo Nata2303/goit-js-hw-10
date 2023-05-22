@@ -1,7 +1,5 @@
 export function fetchCountries(letter) {
-  const url = `https://restcountries.com/v3.1/name/${encodeURIComponent(
-    letter
-  )}?fields=name,capital,population,flags.svg,languages`;
+  const url = `https://restcountries.com/v3.1/name/${letter}?fields=name,capital,population,flags,languages`;
 
   return fetch(url)
     .then(response => {
