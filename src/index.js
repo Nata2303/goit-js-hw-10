@@ -43,7 +43,7 @@ function hideError() {
 }
 
 function handleBreedSelectChange() {
-  const breedId = breedSelect.value;
+  const breedId = breedSelect.options[breedSelect.selectedIndex].value;
 
   showLoader();
   hideError();
