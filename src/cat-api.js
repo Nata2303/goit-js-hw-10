@@ -16,14 +16,12 @@ export function fetchBreeds() {
 }
 
 export function fetchCatByBreed(breedId) {
+  const catUrl = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`;
 
-  const catUrl = `https://api.thecatapi.com/v1/images/0XYvRd7oD`;
-
-  return fetch(catUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to fetch cat by breed');
-      }
-      return response.json();
-    })
+  return fetch(catUrl).then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to fetch cat by breed');
+    }
+    return response.json();
+  });
 }

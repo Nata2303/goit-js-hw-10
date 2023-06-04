@@ -2,27 +2,34 @@ import { fetchBreeds, fetchCatByBreed } from './cat-api';
 import Notiflix from 'notiflix';
 
 const breedSelect = document.getElementById('breed-select');
-const catInfo = document.getElementById('cat-info');
+const catInfo = document.querySelector('cat-info');
 const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
 
 function renderBreeds(breeds) {
   breedSelect.innerHTML = breeds
-    .map(breed => `<option value="${breed.id}">${breed.name}</option>`)
+    .map(
+      breed =>
+        `<option value="${breed.reference_image_id}">${breed.name}</option>`
+    )
     .join('');
 }
 
 function renderCatInfo(cat) {
-  const { name, description, temperament, image } = cat;
+  const breed = cat[0].breeds[0].name;
+  const { name, description, temperament, url } = cat;
 
   const catMarkup = `
-    <img src="${image.url}" alt="${name}" class="cat-image">
-    <h2>${name}</h2>
-    <p><strong>Description:</strong> ${description}</p>
-    <p><strong>Temperament:</strong> ${temperament}</p>
+    <img src="${url}" alt="${name}" width="400">
+    <div class="cat-description">
+      <h2>${name}</h2>
+      <p>${description}</p>
+      <p><span>Temperament:</span> ${temperament}</p>
+    </div>
   `;
 
   catInfo.innerHTML = catMarkup;
+  catInfo.style.display = 'block';
 }
 
 function showLoader() {
@@ -43,7 +50,8 @@ function hideError() {
 }
 
 function handleBreedSelectChange() {
-  const breedId = breedSelect.options[breedSelect.selectedIndex].value;
+const breedId = breedSelect.options[breedSelect.selectedIndex].value;
+
 
   showLoader();
   hideError();
