@@ -2,7 +2,7 @@ import { fetchBreeds, fetchCatByBreed } from './cat-api';
 import Notiflix from 'notiflix';
 
 const breedSelect = document.getElementById('breed-select');
-const catInfo = document.querySelector('cat-info');
+const catInfo = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
 
@@ -16,15 +16,14 @@ function renderBreeds(breeds) {
 }
 
 function renderCatInfo(cat) {
-  const breed = cat[0].breeds[0].name;
-  const { name, description, temperament, url } = cat;
+  const { breeds, url } = cat;
 
   const catMarkup = `
-    <img src="${url}" alt="${name}" width="400">
+    <img src="${url}" alt="${breeds[0].name}" width="400">
     <div class="cat-description">
-      <h2>${name}</h2>
-      <p>${description}</p>
-      <p><span>Temperament:</span> ${temperament}</p>
+      <h2>${breeds[0].name}</h2>
+      <p>${breeds[0].description}</p>
+      <p><span>Temperament:</span> ${breeds[0].temperament}</p>
     </div>
   `;
 
