@@ -48,13 +48,20 @@ function hideError() {
   error.style.display = 'none';
 }
 
-function handleBreedSelectChange() {
-const breedId = breedSelect.options[breedSelect.selectedIndex].value;
+function hideCatInfo() {
+  catInfo.innerHTML = '';
+  catInfo.style.display = 'none';
+}
 
+function handleBreedSelectChange(event) {
+  const breedId = event.target.value;
 
   showLoader();
   hideError();
+  hideCatInfo();
 
+  catInfo.style.display = 'none';
+  
   fetchCatByBreed(breedId)
     .then(cat => {
       renderCatInfo(cat);
@@ -69,11 +76,14 @@ const breedId = breedSelect.options[breedSelect.selectedIndex].value;
 function initializeApp() {
   showLoader();
   hideError();
+  breedSelect.setAttribute('hidden', 'true');
+
 
   fetchBreeds()
     .then(breeds => {
       renderBreeds(breeds);
       hideLoader();
+      breedSelect.removeAttribute('hidden');
     })
     .catch(errorObj => {
       showError('Failed to fetch breeds');
